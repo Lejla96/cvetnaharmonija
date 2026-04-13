@@ -1,16 +1,16 @@
 :root {
-  --bg: #fffaf6;
-  --surface: rgba(255, 255, 255, 0.92);
+  --bg: #fff3fb;
+  --surface: rgba(255, 255, 255, 0.94);
   --surface-strong: #ffffff;
-  --text: #17212b;
-  --muted: #5d6670;
-  --primary: #ff8a3d;
-  --primary-dark: #f06b10;
-  --secondary: #243b53;
-  --accent: #ffe5d1;
-  --accent-strong: #fff2e8;
-  --border: rgba(23, 33, 43, 0.08);
-  --shadow: 0 24px 60px rgba(36, 59, 83, 0.12);
+  --text: #251423;
+  --muted: #72576b;
+  --primary: #ff4fa3;
+  --primary-dark: #e0187d;
+  --secondary: #7b1451;
+  --accent: #ffd0e7;
+  --accent-strong: #ffe8f4;
+  --border: rgba(123, 20, 81, 0.12);
+  --shadow: 0 24px 60px rgba(224, 24, 125, 0.16);
   --radius-lg: 28px;
   --radius-md: 20px;
   --radius-sm: 14px;
@@ -30,8 +30,8 @@ body {
   font-family: "Manrope", sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, rgba(255, 138, 61, 0.18), transparent 30%),
-    linear-gradient(180deg, #fff9f3 0%, #fff 55%, #fff8f2 100%);
+    radial-gradient(circle at top left, rgba(255, 79, 163, 0.24), transparent 30%),
+    linear-gradient(180deg, #fff2fa 0%, #fff 55%, #fff4fb 100%);
 }
 
 a {
@@ -73,7 +73,7 @@ img {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 999px;
-  box-shadow: 0 10px 30px rgba(36, 59, 83, 0.08);
+  box-shadow: 0 10px 30px rgba(224, 24, 125, 0.1);
   backdrop-filter: blur(16px);
 }
 
@@ -196,7 +196,7 @@ img {
 .button-primary {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: #fff;
-  box-shadow: 0 12px 24px rgba(255, 138, 61, 0.3);
+  box-shadow: 0 12px 24px rgba(255, 79, 163, 0.34);
 }
 
 .button-secondary {
