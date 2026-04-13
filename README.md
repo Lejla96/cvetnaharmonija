@@ -1,6 +1,6 @@
 # PetShop Skopje Website
 
-Static bilingual website with a small Node.js backend for appointment booking.
+Static bilingual website with a booking backend that works both locally and on Vercel.
 
 ## Run locally
 
@@ -20,6 +20,14 @@ Appointment requests are sent to `POST /api/bookings`.
 
 - Requests are stored locally in `data/bookings.ndjson`
 - Email sending is enabled when SMTP environment variables are configured
+
+## Vercel deployment
+
+- `index.html`, `en.html`, `styles.css`, and `script.js` are served as static files
+- `api/bookings.js` handles appointment submissions as a serverless function
+- `/en` rewrites to `/en.html` through `vercel.json`
+
+On Vercel, filesystem writes may fall back to temporary storage, so SMTP email delivery is strongly recommended for production booking notifications.
 
 ### Optional SMTP configuration
 
