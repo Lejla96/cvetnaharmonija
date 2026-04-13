@@ -1,0 +1,25 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "Bilingual pet shop website with booking backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --check server.js && node --check script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lejla96/cvetnaharmonija.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lejla96/cvetnaharmonija/issues"
+  },
+  "homepage": "https://github.com/Lejla96/cvetnaharmonija#readme",
+  "dependencies": {
+    "nodemailer": "^8.0.5"
+  }
+}
