@@ -206,13 +206,22 @@ async function handleBooking(request, response) {
   }
 }
 
-async function serveStatic(filePath, response) {
+async function serveStatic(filePath, request, response) {
   try {
     const resolvedPath = path.join(ROOT, filePath);
     const extension = path.extname(resolvedPath);
     const contentType = MIME_TYPES[extension] || "application/octet-stream";
     const content = await fs.readFile(resolvedPath);
-    response.writeHead(200, { "Content-Type": contentType });
+    response.writeHead(200, {
+      "Content-Type": contentType,
+      "Content-Length": Buffer.byteLength(content),
+    });
+
+    if (request.method === "HEAD") {
+      response.end();
+      return;
+    }
+
     response.end(content);
   } catch (error) {
     if (error.code === "ENOENT") {
@@ -240,24 +249,24 @@ const server = http.createServer(async (request, response) => {
     return;
   }
 
-  if (request.method !== "GET") {
+  if (!["GET", "HEAD"].includes(request.method || "")) {
     response.writeHead(405, { "Content-Type": "text/plain; charset=utf-8" });
     response.end("Method not allowed");
     return;
   }
 
   if (url.pathname === "/" || url.pathname === "/index.html") {
-    await serveStatic("index.html", response);
+    await serveStatic("index.html", request, response);
     return;
   }
 
   if (url.pathname === "/en" || url.pathname === "/en.html") {
-    await serveStatic("en.html", response);
+    await serveStatic("en.html", request, response);
     return;
   }
 
   const sanitizedPath = path.normalize(url.pathname).replace(/^(\.\.[/\\])+/, "");
-  await serveStatic(sanitizedPath.replace(/^[/\\]/, ""), response);
+  await serveStatic(sanitizedPath.replace(/^[/\\]/, ""), request, response);
 });
 
 server.listen(PORT, () => {
