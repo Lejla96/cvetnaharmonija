@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | PetShop Skopje</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+      <form id="loginForm" class="login-card">
+        <h1>PetShop Admin</h1>
+        <p>Sign in to manage your website</p>
+        <label>
+          Email
+          <input type="email" id="loginEmail" placeholder="admin@petshopskopje.mk" required />
+        </label>
+        <label>
+          Password
+          <input type="password" id="loginPassword" placeholder="Your password" required />
+        </label>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+        <p id="loginError" class="error-text"></p>
+      </form>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="dashboard" class="dashboard" hidden>
+      <header class="admin-header">
+        <h1>PetShop Admin</h1>
+        <div class="header-actions">
+          <a href="/" class="btn btn-ghost" target="_blank">View Site</a>
+          <button id="logoutBtn" class="btn btn-outline">Sign out</button>
+        </div>
+      </header>
+
+      <nav class="admin-tabs">
+        <button class="tab active" data-tab="contact">Contact Info</button>
+        <button class="tab" data-tab="text">Text Content</button>
+        <button class="tab" data-tab="colors">Colors &amp; Theme</button>
+        <button class="tab" data-tab="gallery">Gallery Images</button>
+      </nav>
+
+      <main class="admin-main">
+        <!-- Contact Info Tab -->
+        <section id="tab-contact" class="tab-panel active">
+          <h2>Contact Information</h2>
+          <p class="panel-desc">Update phone, email, address, and working hours shown on the website.</p>
+          <form id="contactForm" class="settings-form">
+            <div class="form-row">
+              <label>
+                Phone number
+                <input type="tel" data-key="phone" placeholder="+389 70 123 456" />
+              </label>
+              <label>
+                Email address
+                <input type="email" data-key="email" placeholder="bookings@petshopskopje.mk" />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Street address
+                <input type="text" data-key="address" placeholder="Crvena Voda br.37" />
+              </label>
+              <label>
+                City
+                <input type="text" data-key="city" placeholder="1000 Skopje" />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Country (Macedonian)
+                <input type="text" data-key="country_mk" placeholder="Северна Македонија" />
+              </label>
+              <label>
+                Country (English)
+                <input type="text" data-key="country_en" placeholder="North Macedonia" />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Working hours
+                <input type="text" data-key="working_hours" placeholder="09:00 - 19:00" />
+              </label>
+              <label>
+                Working days (Macedonian)
+                <input type="text" data-key="working_days_mk" placeholder="Понеделник - Сабота" />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Working days (English)
+                <input type="text" data-key="working_days_en" placeholder="Monday - Saturday" />
+              </label>
+              <label>
+                Brand name
+                <input type="text" data-key="brand_name" placeholder="PetShop Skopje" />
+              </label>
+            </div>
+            <div class="form-row">
+              <label class="full">
+                Google Maps search query
+                <input type="text" data-key="map_query" placeholder="Crvena Voda 37, Skopje" />
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save contact info</button>
+              <span id="contactStatus" class="save-status"></span>
+            </div>
+          </form>
+        </section>
+
+        <!-- Text Content Tab -->
+        <section id="tab-text" class="tab-panel">
+          <h2>Text Content</h2>
+          <p class="panel-desc">Edit the hero section text displayed on the homepage in both languages.</p>
+          <form id="textForm" class="settings-form">
+            <label>
+              Hero title (Macedonian)
+              <textarea data-key="hero_title_mk" rows="2"></textarea>
+            </label>
+            <label>
+              Hero title (English)
+              <textarea data-key="hero_title_en" rows="2"></textarea>
+            </label>
+            <label>
+              Hero description (Macedonian) — HTML allowed
+              <textarea data-key="hero_desc_mk" rows="4"></textarea>
+            </label>
+            <label>
+              Hero description (English) — HTML allowed
+              <textarea data-key="hero_desc_en" rows="4"></textarea>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save text content</button>
+              <span id="textStatus" class="save-status"></span>
+            </div>
+          </form>
+        </section>
+
+        <!-- Colors Tab -->
+        <section id="tab-colors" class="tab-panel">
+          <h2>Colors &amp; Theme</h2>
+          <p class="panel-desc">Change the primary colors used across the website. Changes apply instantly on save.</p>
+          <form id="colorsForm" class="settings-form">
+            <div class="color-grid">
+              <label class="color-label">
+                Primary
+                <input type="color" data-key="color_primary" value="#ff4fa3" />
+              </label>
+              <label class="color-label">
+                Primary dark
+                <input type="color" data-key="color_primary_dark" value="#e0187d" />
+              </label>
+              <label class="color-label">
+                Secondary
+                <input type="color" data-key="color_secondary" value="#7b1451" />
+              </label>
+              <label class="color-label">
+                Accent
+                <input type="color" data-key="color_accent" value="#ffd0e7" />
+              </label>
+              <label class="color-label">
+                Background
+                <input type="color" data-key="color_bg" value="#fff3fb" />
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save colors</button>
+              <span id="colorsStatus" class="save-status"></span>
+            </div>
+          </form>
+        </section>
+
+        <!-- Gallery Tab -->
+        <section id="tab-gallery" class="tab-panel">
+          <h2>Gallery Images</h2>
+          <p class="panel-desc">Upload photos for the gallery section. Drag or click to add new images.</p>
+          <form id="uploadForm" class="upload-area">
+            <input type="file" id="imageInput" accept="image/*" multiple hidden />
+            <button type="button" id="uploadBtn" class="btn btn-primary">Choose images</button>
+            <span class="upload-hint">JPG, PNG or WebP — max 5 MB each</span>
+          </form>
+          <div id="uploadProgress" class="upload-progress" hidden>
+            <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+            <span id="progressText">Uploading...</span>
+          </div>
+          <div id="galleryGrid" class="admin-gallery-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>

@@ -90,6 +90,11 @@ const server = http.createServer(async (request, response) => {
     return;
   }
 
+  if (url.pathname === "/admin" || url.pathname === "/admin.html") {
+    await serveStatic("admin.html", request, response);
+    return;
+  }
+
   const sanitizedPath = path.normalize(url.pathname).replace(/^(\.\.[/\\])+/, "");
   await serveStatic(sanitizedPath.replace(/^[/\\]/, ""), request, response);
 });

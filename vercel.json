@@ -4,6 +4,10 @@
     {
       "source": "/en",
       "destination": "/en.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
     }
   ]
 }

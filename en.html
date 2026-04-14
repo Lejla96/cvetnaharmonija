@@ -19,7 +19,7 @@
   <body>
     <header class="hero" id="top">
       <nav class="nav">
-        <a class="brand" href="#top">PetShop Skopje</a>
+        <a class="brand" href="#top" data-setting="brand_name">PetShop Skopje</a>
         <div class="nav-links">
           <a href="#services">Services</a>
           <a href="#pricing">Pricing</a>
@@ -35,9 +35,9 @@
 
       <div class="hero-content">
         <div class="hero-copy">
-          <span class="eyebrow">Skopje • Crvena Voda br.37 - 1000 Skopje</span>
-          <h1>Professional grooming salon for dogs and cats.</h1>
-          <p>
+          <span class="eyebrow" data-setting-address>Skopje • Crvena Voda br.37 - 1000 Skopje</span>
+          <h1 data-setting="hero_title_en">Professional grooming salon for dogs and cats.</h1>
+          <p data-setting-html="hero_desc_en">
             At <strong>PetShop Skopje</strong>, we provide bathing, trimming,
             brushing, nail care, and full grooming treatments for your pets.
             Prices range from <strong>50 EUR</strong> to
@@ -57,19 +57,19 @@
 
         <aside class="hero-card">
           <h2>Visit us</h2>
-          <strong>09:00 - 19:00</strong>
-          <p>Monday - Saturday</p>
+          <strong data-setting="working_hours">09:00 - 19:00</strong>
+          <p data-setting="working_days_en">Monday - Saturday</p>
           <div class="contact-item">
             <span>Phone</span>
-            <a href="tel:+38970123456">+389 70 123 456</a>
+            <a data-setting-phone href="tel:+38970123456">+389 70 123 456</a>
           </div>
           <div class="contact-item">
             <span>Email</span>
-            <a href="mailto:bookings@petshopskopje.mk">bookings@petshopskopje.mk</a>
+            <a data-setting-email href="mailto:bookings@petshopskopje.mk">bookings@petshopskopje.mk</a>
           </div>
           <div class="contact-item">
             <span>Address</span>
-            <p>Crvena Voda br.37 - 1000 Skopje</p>
+            <p data-setting-full-address>Crvena Voda br.37 - 1000 Skopje</p>
           </div>
           <ul class="quick-facts">
             <li>Comfortable environment for sensitive pets</li>
@@ -231,7 +231,7 @@
         <div class="location-layout">
           <article class="location-card">
             <h3>Visit information</h3>
-            <address>
+            <address data-setting-address-block="en">
               Crvena Voda br.37<br />
               1000 Skopje<br />
               North Macedonia
@@ -242,11 +242,11 @@
             </p>
             <div class="contact-item">
               <span>Phone</span>
-              <a href="tel:+38970123456">+389 70 123 456</a>
+              <a data-setting-phone href="tel:+38970123456">+389 70 123 456</a>
             </div>
             <div class="contact-item">
               <span>Email</span>
-              <a href="mailto:bookings@petshopskopje.mk">bookings@petshopskopje.mk</a>
+              <a data-setting-email href="mailto:bookings@petshopskopje.mk">bookings@petshopskopje.mk</a>
             </div>
           </article>
 
@@ -255,6 +255,7 @@
               class="map-frame"
               title="PetShop Skopje map"
               loading="lazy"
+              data-setting-map
               src="https://www.google.com/maps?q=Crvena%20Voda%2037%2C%20Skopje&output=embed"
             ></iframe>
           </article>
@@ -443,9 +444,11 @@
     </main>
 
     <footer class="footer">
-      <p>© <span id="year"></span> PetShop Skopje. All rights reserved.</p>
+      <p>© <span id="year"></span> <span data-setting="brand_name">PetShop Skopje</span>. All rights reserved.</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="script.js"></script>
+    <script src="site-loader.js"></script>
   </body>
 </html>
