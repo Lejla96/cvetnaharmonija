@@ -19,6 +19,8 @@ Open:
 Appointment requests are sent to `POST /api/bookings`.
 
 - Requests are stored locally in `data/bookings.ndjson`
+- If Supabase is configured, appointment requests can also be stored in the
+  `appointment_requests` table for durable production storage
 - Email sending is enabled when SMTP environment variables are configured
 
 ## Supabase pet contacts
@@ -48,6 +50,7 @@ Optional:
 
 ```bash
 export SUPABASE_PET_CONTACTS_TABLE="pet_owner_contacts"
+export SUPABASE_BOOKINGS_TABLE="appointment_requests"
 ```
 
 Keep the service role key only in Vercel/server environments and never expose it
@@ -59,8 +62,8 @@ in the browser.
 - `api/bookings.js` handles appointment submissions as a serverless function
 - `api/pet-profiles.js` stores pet contact submissions in Supabase
 - `/en` rewrites to `/en.html` through `vercel.json`
-
-On Vercel, filesystem writes may fall back to temporary storage, so SMTP email delivery is strongly recommended for production booking notifications.
+- On Vercel, appointment requests should use Supabase and/or SMTP for durable
+  production handling
 
 ### Optional SMTP configuration
 
