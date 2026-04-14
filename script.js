@@ -1,9 +1,7 @@
-const form = document.getElementById("bookingForm");
-const message = document.getElementById("formMessage");
 const year = document.getElementById("year");
-const dateInput = document.querySelector('input[name="date"]');
+const bookingDateInput = document.querySelector('#bookingForm input[name="date"]');
 
-const content = {
+const bookingContent = {
   mk: {
     sending: "Вашето барање се испраќа...",
     success(reference, emailSent) {
@@ -30,18 +28,79 @@ const content = {
   },
 };
 
+const profileContent = {
+  mk: {
+    sending: "Вашите податоци се зачувуваат...",
+    success(petName) {
+      return `Благодариме! Податоците за ${petName} се успешно зачувани и ќе можеме полесно да ве контактираме.`;
+    },
+    error: "Настана проблем при зачувувањето. Обидете се повторно.",
+    buttonIdle: "Зачувај контакт",
+    buttonBusy: "Се зачувува...",
+  },
+  en: {
+    sending: "Saving your information...",
+    success(petName) {
+      return `Thank you! ${petName}'s contact details have been saved successfully.`;
+    },
+    error: "Something went wrong while saving your information. Please try again.",
+    buttonIdle: "Save contact details",
+    buttonBusy: "Saving...",
+  },
+};
+
 if (year) {
   year.textContent = new Date().getFullYear();
 }
 
-if (dateInput) {
-  dateInput.min = new Date().toISOString().split("T")[0];
+function setMinimumDate(input) {
+  if (input) {
+    input.min = new Date().toISOString().split("T")[0];
+  }
 }
 
-if (form && message) {
+async function submitJson(endpoint, payload) {
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  let result = {};
+
+  try {
+    result = await response.json();
+  } catch (error) {
+    result = {};
+  }
+
+  if (!response.ok || !result.success) {
+    throw new Error(result.error || "Request failed");
+  }
+
+  return result;
+}
+
+function bindForm({
+  formId,
+  messageId,
+  endpoint,
+  contentMap,
+  onSuccessMessage,
+  afterReset,
+}) {
+  const form = document.getElementById(formId);
+  const message = document.getElementById(messageId);
+
+  if (!form || !message) {
+    return;
+  }
+
   const submitButton = form.querySelector('button[type="submit"]');
   const language = form.dataset.lang === "en" ? "en" : "mk";
-  const text = content[language];
+  const text = contentMap[language];
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -58,27 +117,12 @@ if (form && message) {
     message.textContent = text.sending;
 
     try {
-      const response = await fetch("/api/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || "Request failed");
-      }
-
-      message.textContent = text.success(
-        result.booking.reference,
-        Boolean(result.booking.emailSent),
-      );
+      const result = await submitJson(endpoint, payload);
+      message.textContent = onSuccessMessage(result, text);
       form.reset();
-      if (dateInput) {
-        dateInput.min = new Date().toISOString().split("T")[0];
+
+      if (afterReset) {
+        afterReset(form);
       }
     } catch (error) {
       console.error(error);
@@ -91,3 +135,31 @@ if (form && message) {
     }
   });
 }
+
+setMinimumDate(bookingDateInput);
+
+bindForm({
+  formId: "bookingForm",
+  messageId: "formMessage",
+  endpoint: "/api/bookings",
+  contentMap: bookingContent,
+  onSuccessMessage(result, text) {
+    return text.success(
+      result.booking.reference,
+      Boolean(result.booking.emailSent),
+    );
+  },
+  afterReset() {
+    setMinimumDate(bookingDateInput);
+  },
+});
+
+bindForm({
+  formId: "petProfileForm",
+  messageId: "profileMessage",
+  endpoint: "/api/pet-profiles",
+  contentMap: profileContent,
+  onSuccessMessage(result, text) {
+    return text.success(result.profile.petName);
+  },
+});

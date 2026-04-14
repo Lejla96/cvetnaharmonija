@@ -488,6 +488,12 @@ img {
   grid-column: 1 / -1;
 }
 
+.form-helper {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .form-message {
   min-height: 24px;
   margin: 4px 0 0;

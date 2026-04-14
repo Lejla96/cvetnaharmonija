@@ -2,6 +2,7 @@ const http = require("node:http");
 const fs = require("node:fs/promises");
 const path = require("node:path");
 const { handleBookingRequest } = require("./lib/booking");
+const { handlePetProfileRequest } = require("./lib/petProfiles");
 
 const PORT = Number(process.env.PORT || 3000);
 const ROOT = __dirname;
@@ -63,6 +64,12 @@ const server = http.createServer(async (request, response) => {
 
   if (request.method === "POST" && url.pathname === "/api/bookings") {
     const result = await handleBookingRequest(request);
+    json(response, result.statusCode, result.payload);
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/pet-profiles") {
+    const result = await handlePetProfileRequest(request);
     json(response, result.statusCode, result.payload);
     return;
   }
