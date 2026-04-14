@@ -1,43 +1,65 @@
-const SUPABASE_URL = "https://snidbpfaomksoabrazwm.supabase.co";
-const SUPABASE_ANON_KEY =
+var SUPABASE_URL = "https://snidbpfaomksoabrazwm.supabase.co";
+var SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNuaWRicGZhb21rc29hYnJhendtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MzMzMjQsImV4cCI6MjA5MTMwOTMyNH0.8ILcAfBGvTNiKfp8M9ey_X9Nsy8hZ7nD5fFTN2HXDHM";
 
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+var sb;
+try {
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} catch (err) {
+  document.getElementById("loginError").textContent =
+    "Failed to load Supabase library. Please refresh the page.";
+}
 
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => [...document.querySelectorAll(sel)];
+var $ = function (sel) { return document.querySelector(sel); };
+var $$ = function (sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); };
 
 // ─── Auth ───
 
 async function checkSession() {
-  const {
-    data: { session },
-  } = await sb.auth.getSession();
-  if (session) showDashboard();
+  try {
+    var result = await sb.auth.getSession();
+    if (result.data.session) showDashboard();
+  } catch (err) {
+    console.warn("Session check failed:", err);
+  }
 }
 
-$("#loginForm").addEventListener("submit", async (e) => {
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
   e.preventDefault();
-  const email = $("#loginEmail").value.trim();
-  const password = $("#loginPassword").value;
-  $("#loginError").textContent = "";
+  var loginBtn = e.target.querySelector('button[type="submit"]');
+  var errorEl = document.getElementById("loginError");
+  var email = document.getElementById("loginEmail").value.trim();
+  var password = document.getElementById("loginPassword").value;
 
-  const { error } = await sb.auth.signInWithPassword({ email, password });
-  if (error) {
-    $("#loginError").textContent = error.message;
-    return;
+  errorEl.textContent = "";
+  loginBtn.disabled = true;
+  loginBtn.textContent = "Signing in...";
+
+  try {
+    var result = await sb.auth.signInWithPassword({ email: email, password: password });
+    if (result.error) {
+      errorEl.textContent = result.error.message;
+      loginBtn.disabled = false;
+      loginBtn.textContent = "Sign in";
+      return;
+    }
+    showDashboard();
+  } catch (err) {
+    errorEl.textContent = "Login failed: " + (err.message || "Unknown error");
+    loginBtn.disabled = false;
+    loginBtn.textContent = "Sign in";
   }
-  showDashboard();
 });
 
-$("#logoutBtn").addEventListener("click", async () => {
+document.getElementById("logoutBtn").addEventListener("click", async function () {
   await sb.auth.signOut();
   location.reload();
 });
 
 function showDashboard() {
-  $("#loginScreen").hidden = true;
-  $("#dashboard").hidden = false;
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("dashboard").removeAttribute("hidden");
+  document.getElementById("dashboard").style.display = "block";
   loadAllSettings();
   loadGallery();
 }
