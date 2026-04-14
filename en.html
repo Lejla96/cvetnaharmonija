@@ -25,6 +25,7 @@
           <a href="#pricing">Pricing</a>
           <a href="#gallery">Gallery</a>
           <a href="#location">Location</a>
+          <a href="#profile">Profile</a>
           <a href="#booking">Booking</a>
         </div>
         <div class="nav-meta">
@@ -257,6 +258,84 @@
               src="https://www.google.com/maps?q=Crvena%20Voda%2037%2C%20Skopje&output=embed"
             ></iframe>
           </article>
+        </div>
+      </section>
+
+      <section class="section" id="profile">
+        <div class="section-heading">
+          <span class="eyebrow">Pet profile</span>
+          <h2>Leave your contact details and your pet's name</h2>
+          <p>
+            This short form stores your full name, phone number, email address,
+            and pet name in our database so our team can reach you more easily.
+          </p>
+        </div>
+
+        <div class="booking-layout">
+          <div class="booking-info">
+            <h3>What do we store?</h3>
+            <ul class="booking-benefits">
+              <li>Owner full name</li>
+              <li>Phone number and email address</li>
+              <li>Your pet's name</li>
+            </ul>
+            <div class="booking-note">
+              <strong>Important:</strong>
+              <p>
+                This form is only for contact details. To choose a service, date,
+                and time, please use the booking form below.
+              </p>
+            </div>
+          </div>
+
+          <form class="booking-form" id="petProfileForm" data-lang="en">
+            <div class="form-grid">
+              <label>
+                Full name
+                <input
+                  type="text"
+                  name="ownerName"
+                  placeholder="Your full name"
+                  required
+                />
+              </label>
+              <label>
+                Phone number
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="+389 70 123 456"
+                  required
+                />
+              </label>
+              <label>
+                Email address
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="name@example.com"
+                  required
+                />
+              </label>
+              <label>
+                Pet name
+                <input
+                  type="text"
+                  name="petName"
+                  placeholder="Pet name"
+                  required
+                />
+              </label>
+            </div>
+            <p class="form-helper">
+              When submitted, these details will be stored in the salon's
+              Supabase database.
+            </p>
+            <button class="button button-primary button-full" type="submit">
+              Save contact details
+            </button>
+            <p class="form-message" id="profileMessage" aria-live="polite"></p>
+          </form>
         </div>
       </section>
 

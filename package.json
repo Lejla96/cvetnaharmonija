@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "node --check server.js && node --check script.js"
+    "test": "node --check server.js && node --check script.js && node --check api/bookings.js && node --check api/pet-profiles.js && node --check lib/booking.js && node --check lib/petProfiles.js && node --check lib/supabase.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Lejla96/cvetnaharmonija#readme",
   "dependencies": {
+    "@supabase/supabase-js": "^2.103.0",
     "nodemailer": "^8.0.5"
   }
 }

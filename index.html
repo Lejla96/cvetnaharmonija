@@ -25,6 +25,7 @@
           <a href="#cenovnik">Цени</a>
           <a href="#galerija">Галерија</a>
           <a href="#lokacija">Локација</a>
+          <a href="#profil">Профил</a>
           <a href="#rezervacija">Закажување</a>
         </div>
         <div class="nav-meta">
@@ -256,6 +257,85 @@
               src="https://www.google.com/maps?q=Crvena%20Voda%2037%2C%20Skopje&output=embed"
             ></iframe>
           </article>
+        </div>
+      </section>
+
+      <section class="section" id="profil">
+        <div class="section-heading">
+          <span class="eyebrow">Клиентска карта</span>
+          <h2>Оставете ги вашите контакт податоци и името на миленичето</h2>
+          <p>
+            Со оваа кратка форма ќе ги зачуваме вашето име, телефон, email и
+            името на миленичето во нашата база, за да можеме полесно да ве
+            контактираме.
+          </p>
+        </div>
+
+        <div class="booking-layout">
+          <div class="booking-info">
+            <h3>Што зачувуваме?</h3>
+            <ul class="booking-benefits">
+              <li>Име и презиме на сопственикот</li>
+              <li>Телефонски број и email адреса</li>
+              <li>Име на вашето милениче</li>
+            </ul>
+            <div class="booking-note">
+              <strong>Важно:</strong>
+              <p>
+                Оваа форма е наменета за контакт податоци. За избор на термин и
+                услуга, искористете ја формата за закажување подолу.
+              </p>
+            </div>
+          </div>
+
+          <form class="booking-form" id="petProfileForm" data-lang="mk">
+            <div class="form-grid">
+              <label>
+                Име и презиме
+                <input
+                  type="text"
+                  name="ownerName"
+                  placeholder="Вашето име и презиме"
+                  required
+                />
+              </label>
+              <label>
+                Телефон
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="+389 70 123 456"
+                  required
+                />
+              </label>
+              <label>
+                Email адреса
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="ime@example.com"
+                  required
+                />
+              </label>
+              <label>
+                Име на миленичето
+                <input
+                  type="text"
+                  name="petName"
+                  placeholder="Име на миленичето"
+                  required
+                />
+              </label>
+            </div>
+            <p class="form-helper">
+              Со поднесување на формата, податоците ќе се зачуваат во Supabase
+              базата на салонот.
+            </p>
+            <button class="button button-primary button-full" type="submit">
+              Зачувај контакт
+            </button>
+            <p class="form-message" id="profileMessage" aria-live="polite"></p>
+          </form>
         </div>
       </section>
 
